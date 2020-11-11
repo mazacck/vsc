@@ -1,0 +1,25 @@
+{
+    "editor.formatOnSave": true,
+    "python.pythonPath": "/home/mazack/miniconda3/envs/deven/bin/python",
+    "python.sortImports.args": [
+        "-rc",
+        "-sp isort.cfg",
+        "--float-to-top"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=99"
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/home/mazack/.local/bin/flake8",
+    "python.linting.flake8Args": [
+        "--max-line-length=130"
+    ],
+    "python.linting.enabled": true,
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    }
+}
