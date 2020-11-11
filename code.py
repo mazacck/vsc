@@ -23,6 +23,7 @@ HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
 
 
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
+    """ Downloading the housing data """
     os.makedirs(housing_path, exist_ok=True)
     tgz_path = os.path.join(housing_path, "housing.tgz")
     urllib.request.urlretrieve(housing_url, tgz_path)
@@ -35,20 +36,22 @@ fetch_housing_data()
 
 
 def load_housing_data(housing_path=HOUSING_PATH):
+    """ Loading the housing dataset """
     csv_path = os.path.join(housing_path, "housing.csv")
     return pd.read_csv(csv_path)
 
 
 housing = load_housing_data()
 
-
+# Splitting the data into training and test set
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
+# Dividing the median income into categories
 housing["income_cat"] = pd.cut(
     housing["median_income"], bins=[0.0, 1.5, 3.0, 4.5, 6.0, np.inf], labels=[1, 2, 3, 4, 5]
 )
 
-
+# Splitting the dataset into training and testing set for StraitifiedShuffleSplit
 split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 for train_index, test_index in split.split(housing, housing["income_cat"]):
     strat_train_set = housing.loc[train_index]
@@ -56,6 +59,7 @@ for train_index, test_index in split.split(housing, housing["income_cat"]):
 
 
 def income_cat_proportions(data):
+    """ Finding proportion of the particular income category """
     return data["income_cat"].value_counts() / len(data)
 
 
